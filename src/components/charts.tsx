@@ -1,0 +1,55 @@
+import { Bar, BarChart, CartesianGrid, ComposedChart, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+
+const axis = { stroke: '#c1cdd9', fontSize: 12 }
+
+export const SalesLineChart = ({ data }: { data: { month: string; revenue: number; target: number }[] }) => (
+  <ResponsiveContainer width="100%" height={260}>
+    <LineChart data={data}>
+      <CartesianGrid stroke="#214059" strokeOpacity={0.45} />
+      <XAxis dataKey="month" tick={axis} />
+      <YAxis tick={axis} />
+      <Tooltip contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }} />
+      <Line type="monotone" dataKey="revenue" stroke="#275fc1" strokeWidth={2.5} dot={false} />
+      <Line type="monotone" dataKey="target" stroke="#19c2b8" strokeWidth={2} dot={false} />
+    </LineChart>
+  </ResponsiveContainer>
+)
+
+export const CashAreaChart = ({ data }: { data: { month: string; inflow: number; outflow: number }[] }) => {
+  const flowData = data.map((item) => ({
+    month: item.month,
+    inflow: item.inflow,
+    outflow: -Math.abs(item.outflow),
+    net: item.inflow - item.outflow
+  }))
+
+  return (
+    <ResponsiveContainer width="100%" height={260}>
+      <ComposedChart data={flowData}>
+        <CartesianGrid stroke="#214059" strokeOpacity={0.45} />
+        <XAxis dataKey="month" tick={axis} />
+        <YAxis tick={axis} domain={[-6, 6]} />
+        <ReferenceLine y={0} stroke="#214059" strokeWidth={1} />
+        <Tooltip contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }} />
+        <Bar dataKey="inflow" fill="#22A87e" radius={0} maxBarSize={38} />
+        <Bar dataKey="outflow" fill="#e45757" radius={0} maxBarSize={38} />
+        <Line type="monotone" dataKey="net" stroke="#275fc1" strokeWidth={2.5} dot={false} />
+      </ComposedChart>
+    </ResponsiveContainer>
+  )
+}
+
+export const RevenueBarChart = ({ data }: { data: { name: string; value: number }[] }) => (
+  <ResponsiveContainer width="100%" height={260}>
+    <BarChart data={data} layout="vertical">
+      <CartesianGrid stroke="#214059" strokeOpacity={0.45} />
+      <XAxis type="number" tick={axis} />
+      <YAxis type="category" dataKey="name" tick={axis} width={140} />
+      <Tooltip
+        contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }}
+        cursor={{ fill: '#214059', fillOpacity: 0.28 }}
+      />
+      <Bar dataKey="value" fill="#2aa9e0" radius={[8, 8, 8, 8]} />
+    </BarChart>
+  </ResponsiveContainer>
+)
