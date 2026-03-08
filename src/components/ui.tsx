@@ -32,8 +32,8 @@ export const PageHeader = ({ title, subtitle }: { title: string; subtitle: strin
       <p className="text-base text-txt-secondary">{subtitle}</p>
     </div>
     <div className="flex gap-2">
-      <button className="h-10 rounded-sm border border-str-default bg-bg-card px-4 text-txt-main hover:border-[1.5px] hover:border-str-hover">YTD 2026</button>
-      <button className="h-10 rounded-sm bg-bg-button px-4 text-txt-main">Export</button>
+      <button className="h-10 rounded-sm border border-str-default bg-bg-card px-4 text-txt-main hover:border-[1.5px] hover:border-str-hover">Ano 2026</button>
+      <button className="h-10 rounded-sm bg-bg-button px-4 text-txt-main">Exportar</button>
     </div>
   </header>
 )
