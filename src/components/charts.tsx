@@ -44,7 +44,10 @@ export const RevenueBarChart = ({ data }: { data: { name: string; value: number 
       <CartesianGrid stroke="#214059" strokeOpacity={0.45} />
       <XAxis type="number" tick={axis} />
       <YAxis type="category" dataKey="name" tick={axis} width={140} />
-      <Tooltip contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }} />
+      <Tooltip
+        contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }}
+        cursor={{ fill: '#214059', fillOpacity: 0.28 }}
+      />
       <Bar dataKey="value" fill="#2aa9e0" radius={[8, 8, 8, 8]} />
     </BarChart>
   </ResponsiveContainer>
