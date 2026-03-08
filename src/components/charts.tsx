@@ -1,4 +1,4 @@
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, ComposedChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 const axis = { stroke: '#c1cdd9', fontSize: 12 }
 
@@ -15,18 +15,28 @@ export const SalesLineChart = ({ data }: { data: { month: string; revenue: numbe
   </ResponsiveContainer>
 )
 
-export const CashAreaChart = ({ data }: { data: { month: string; inflow: number; outflow: number }[] }) => (
-  <ResponsiveContainer width="100%" height={260}>
-    <AreaChart data={data}>
-      <CartesianGrid stroke="#214059" strokeOpacity={0.45} />
-      <XAxis dataKey="month" tick={axis} />
-      <YAxis tick={axis} />
-      <Tooltip contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }} />
-      <Area type="monotone" dataKey="inflow" stackId="1" stroke="#22A87e" fill="#22A87e" fillOpacity={0.25} />
-      <Area type="monotone" dataKey="outflow" stackId="1" stroke="#e45757" fill="#e45757" fillOpacity={0.25} />
-    </AreaChart>
-  </ResponsiveContainer>
-)
+export const CashAreaChart = ({ data }: { data: { month: string; inflow: number; outflow: number }[] }) => {
+  const flowData = data.map((item) => ({
+    month: item.month,
+    inflow: item.inflow,
+    outflow: -Math.abs(item.outflow),
+    net: item.inflow - item.outflow
+  }))
+
+  return (
+    <ResponsiveContainer width="100%" height={260}>
+      <ComposedChart data={flowData}>
+        <CartesianGrid stroke="#214059" strokeOpacity={0.45} />
+        <XAxis dataKey="month" tick={axis} />
+        <YAxis tick={axis} />
+        <Tooltip contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }} />
+        <Bar dataKey="inflow" fill="#22A87e" radius={[8, 8, 0, 0]} />
+        <Bar dataKey="outflow" fill="#e45757" radius={[0, 0, 8, 8]} />
+        <Line type="monotone" dataKey="net" stroke="#275fc1" strokeWidth={2.5} dot={false} />
+      </ComposedChart>
+    </ResponsiveContainer>
+  )
+}
 
 export const RevenueBarChart = ({ data }: { data: { name: string; value: number }[] }) => (
   <ResponsiveContainer width="100%" height={260}>

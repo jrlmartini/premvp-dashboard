@@ -51,9 +51,9 @@ export const App = () => {
       <div className={`mx-auto grid max-w-[1600px] grid-cols-1 ${isQuiosque ? 'xl:grid-cols-1' : collapsed ? 'xl:grid-cols-[88px_1fr]' : 'xl:grid-cols-[260px_1fr]'}`}>
         {!isQuiosque && (
           <aside className="border-r border-str-default bg-bg-card p-4 xl:min-h-screen">
-            <div className="mb-8 flex items-center justify-between">
-              <img src={conatusLogo} alt="Conatus Ambiental" className={`w-auto ${collapsed ? 'h-7' : 'h-8'}`} />
-              <button onClick={() => setCollapsed((prev) => !prev)} className="hidden h-10 w-10 items-center justify-center rounded-sm border border-str-default text-txt-secondary transition hover:border-[1.5px] hover:border-str-hover hover:text-txt-main xl:flex" aria-label="Recolher menu lateral">
+            <div className={`mb-8 flex items-center ${collapsed ? 'justify-center' : 'justify-between'}`}>
+              {!collapsed && <img src={conatusLogo} alt="Conatus Ambiental" className="h-8 w-auto object-contain" />}
+              <button onClick={() => setCollapsed((prev) => !prev)} className={`h-10 w-10 items-center justify-center rounded-sm border border-str-default text-txt-secondary transition hover:border-[1.5px] hover:border-str-hover hover:text-txt-main ${collapsed ? 'flex' : 'hidden xl:flex'}`} aria-label="Recolher menu lateral">
                 {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
               </button>
             </div>
