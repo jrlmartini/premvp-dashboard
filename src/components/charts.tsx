@@ -1,4 +1,4 @@
-import { Bar, BarChart, CartesianGrid, ComposedChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, ComposedChart, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 const axis = { stroke: '#c1cdd9', fontSize: 12 }
 
@@ -28,10 +28,11 @@ export const CashAreaChart = ({ data }: { data: { month: string; inflow: number;
       <ComposedChart data={flowData}>
         <CartesianGrid stroke="#214059" strokeOpacity={0.45} />
         <XAxis dataKey="month" tick={axis} />
-        <YAxis tick={axis} />
+        <YAxis tick={axis} domain={[-6, 6]} />
+        <ReferenceLine y={0} stroke="#214059" strokeWidth={1} />
         <Tooltip contentStyle={{ background: '#071724', border: '0.5px solid #214059', color: '#f2f2f2' }} />
-        <Bar dataKey="inflow" fill="#22A87e" radius={[8, 8, 0, 0]} />
-        <Bar dataKey="outflow" fill="#e45757" radius={[0, 0, 8, 8]} />
+        <Bar dataKey="inflow" fill="#22A87e" radius={0} maxBarSize={38} />
+        <Bar dataKey="outflow" fill="#e45757" radius={0} maxBarSize={38} />
         <Line type="monotone" dataKey="net" stroke="#275fc1" strokeWidth={2.5} dot={false} />
       </ComposedChart>
     </ResponsiveContainer>
